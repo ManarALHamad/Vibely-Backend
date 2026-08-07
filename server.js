@@ -10,6 +10,10 @@ const PORT = process.env.PORT ? process.env.PORT : "3000"
 const authCtrl = require('./controllers/auth')
 const usersCtrl = require('./controllers/users')
 
+//Vibely controllers
+const postCtrl = require('./controllers/post.controller.js')
+const commentCtrl = require('./controllers/comment.controller.js')
+
 const verifyToken = require('./middleware/verify-token')
 
 mongoose.connect(process.env.MONGODB_URI)

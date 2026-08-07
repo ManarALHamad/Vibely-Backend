@@ -5,7 +5,6 @@ const create = async (req, res) => {
 
         const commentData = {
             content: req.body.content,
-
             // later these will come from JWT / route params
             author: req.body.author,
             post: req.body.post
