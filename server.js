@@ -11,8 +11,8 @@ const authCtrl = require('./controllers/auth')
 const usersCtrl = require('./controllers/users')
 
 //Vibely controllers
-const postCtrl = require('./controllers/post.controller.js')
-const commentCtrl = require('./controllers/comment.controller.js')
+const postCtrl = require('./controllers/posts')
+const commentCtrl = require('./controllers/comments')
 
 const verifyToken = require('./middleware/verify-token')
 
@@ -31,8 +31,23 @@ app.use(morgan('dev'))
 // app.get('/auth/verify-token', authCtrl.verifyToken)
 app.post('/auth/sign-up', authCtrl.signUp)
 app.post('/auth/sign-in', authCtrl.signIn)
-
 app.get('/users', verifyToken, usersCtrl.index)
+
+//posts routes
+app.post('/posts', postCtrl.create)
+app.get('/posts', postCtrl.index)
+app.get('/posts/:postId', postCtrl.show)
+app.put('/posts/:postId', postCtrl.update)
+app.delete('/posts/:postId', postCtrl.deletePost)
+
+// comments routes
+app.post('/comments', commentCtrl.create)
+app.get('/comments', commentCtrl.index)
+app.get('/comments/:commentId', commentCtrl.show)
+app.put('/comments/:commentId', commentCtrl.update)
+app.delete('/comments/:commentId', commentCtrl.deleteComment)
+
+
 
 app.listen(PORT, () => {
   console.log(`The express app is ready on port ${PORT}! 😀`)
