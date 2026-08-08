@@ -11,8 +11,7 @@ const create = async (req, res) => {
             caption: req.body.caption,
             category: req.body.category,
 
-            // later this should come from the logged-in user
-            author: req.body.author,
+            author: req.user._id,
 
             likes: []
         }
@@ -70,6 +69,20 @@ const update = async (req, res) => {
             mediaUrl: req.body.mediaUrl,
             caption: req.body.caption,
             category: req.body.category
+        }
+
+        const post = await Post.findById(req.params.postId)
+
+        if (!post) {
+        return res.status(404).json({
+        message: 'Post not found'
+        })
+        }
+
+        if (!post.author.equals(req.user._id)) {
+        return res.status(403).json({
+        message: 'Unauthorized'
+        })
         }
 
         const updatedPost = await Post.findByIdAndUpdate(
