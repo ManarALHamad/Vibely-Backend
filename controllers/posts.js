@@ -71,18 +71,19 @@ const update = async (req, res) => {
             category: req.body.category
         }
 
+        // Authorization check
         const post = await Post.findById(req.params.postId)
 
         if (!post) {
-        return res.status(404).json({
-        message: 'Post not found'
-        })
+            return res.status(404).json({
+                message: 'Post not found'
+            })
         }
 
         if (!post.author.equals(req.user._id)) {
-        return res.status(403).json({
-        message: 'Unauthorized'
-        })
+            return res.status(403).json({
+                message: 'Unauthorized'
+            })
         }
 
         const updatedPost = await Post.findByIdAndUpdate(
@@ -93,12 +94,6 @@ const update = async (req, res) => {
                 runValidators: true
             }
         )
-
-        if (!updatedPost) {
-            return res.status(404).json({
-                message: 'Post not found'
-            })
-        }
 
         res.status(200).json(updatedPost)
 
