@@ -114,6 +114,14 @@ const deletePost = async (req, res) => {
                 message: 'Post not found'
             })
         }
+        //only the author can delete the post
+        
+        if (!post.author.equals(req.user._id)) {
+       return res.status(403).json({
+        message: 'Unauthorized'
+       })
+        }
+
 
         res.status(200).json(deletedPost)
 
