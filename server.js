@@ -34,11 +34,11 @@ app.post('/auth/sign-in', authCtrl.signIn)
 app.get('/users', verifyToken, usersCtrl.index)
 
 //posts routes
-app.post('/posts', postCtrl.create)
-app.get('/posts', postCtrl.index)
-app.get('/posts/:postId', postCtrl.show)
-app.put('/posts/:postId', postCtrl.update)
-app.delete('/posts/:postId', postCtrl.deletePost)
+app.post('/posts', verifyToken, postCtrl.create)
+app.get('/posts', verifyToken, postCtrl.index)
+app.get('/posts/:postId', verifyToken, postCtrl.show)
+app.put('/posts/:postId', verifyToken, postCtrl.update)
+app.delete('/posts/:postId', verifyToken, postCtrl.deletePost)
 
 // comments routes
 app.post('/comments', commentCtrl.create)
