@@ -16,7 +16,7 @@ try {
 catch (err) 
 
 {
-    res.statu(401).json({ err: 'Invaild Token'})
+    res.status(401).json({ err: 'Invaild Token'})
 }
 
 
