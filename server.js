@@ -32,6 +32,8 @@ app.use(morgan('dev'))
 app.post('/auth/sign-up', authCtrl.signUp)
 app.post('/auth/sign-in', authCtrl.signIn)
 app.get('/users', verifyToken, usersCtrl.index)
+//profile route
+app.get('/users/profile', verifyToken, usersCtrl.profile)
 
 //posts routes
 app.post('/posts/new', verifyToken, postCtrl.create)
