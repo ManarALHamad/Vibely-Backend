@@ -4,10 +4,10 @@ const create = async (req, res) => {
     try {
 
         const commentData = {
-            content: req.body.content,
-            // later these will come from JWT / route params
-            author: req.body.author,
-            post: req.body.post
+
+           content: req.body.content,
+           author: req.user._id,
+           post: req.body.post
         }
 
         const createdComment = await Comment.create(commentData)
