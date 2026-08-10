@@ -42,11 +42,11 @@ app.get('/posts/:postId', verifyToken, postCtrl.show)
 app.put('/posts/:postId', verifyToken, postCtrl.update)
 app.delete('/posts/:postId', verifyToken, postCtrl.deletePost)
 // comments routes
-app.post('/comments', commentCtrl.create)
-app.get('/comments', commentCtrl.index)
-app.get('/comments/:commentId', commentCtrl.show)
-app.put('/comments/:commentId', commentCtrl.update)
-app.delete('/comments/:commentId', commentCtrl.deleteComment)
+app.post('/comments',  verifyToken, commentCtrl.create)
+app.get('/comments',  verifyToken,commentCtrl.index)
+app.get('/comments/:commentId', verifyToken, commentCtrl.show)
+app.put('/comments/:commentId', verifyToken, commentCtrl.update)
+app.delete('/comments/:commentId', verifyToken, commentCtrl.deleteComment)
 
 
 

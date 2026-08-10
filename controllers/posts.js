@@ -107,26 +107,31 @@ const update = async (req, res) => {
 const deletePost = async (req, res) => {
     try {
 
-        const deletedPost = await Post.findByIdAndDelete(req.params.postId)
-        
-        if (!deletedPost) {
+        const post = await Post.findById(req.params.postId)
+
+        if (!post) {
             return res.status(404).json({
                 message: 'Post not found'
             })
         }
-        //only the author can delete the post
 
+        // Only the author can delete the post
         if (!post.author.equals(req.user._id)) {
-       return res.status(403).json({
-        message: 'Unauthorized'
-       })
+            return res.status(403).json({
+                message: 'Unauthorized'
+            })
         }
 
+        const deletedPost = await Post.findByIdAndDelete(
+            req.params.postId
+        )
 
         res.status(200).json(deletedPost)
 
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(500).json({
+            message: error.message
+        })
     }
 }
 
