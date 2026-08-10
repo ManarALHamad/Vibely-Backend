@@ -9,7 +9,8 @@ const postSchema = new mongoose.Schema({
     },
 
     mediaUrl:{
-        type: String,
+        url: String,
+        publicId: String,
         required: true,
     },
     caption: {
