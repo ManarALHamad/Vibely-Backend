@@ -1,5 +1,5 @@
 const Comment = require('../models/Comment')
-
+const Post = require('../models/post')
 
 
 const create = async (req, res) => {
