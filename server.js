@@ -41,6 +41,12 @@ app.get('/posts', verifyToken, postCtrl.index)
 app.get('/posts/:postId', verifyToken, postCtrl.show)
 app.put('/posts/:postId', verifyToken, postCtrl.update)
 app.delete('/posts/:postId', verifyToken, postCtrl.deletePost)
+
+//Like
+app.put('/posts/:postId/like', verifyToken, postCtrl.toggleLike)
+
+
+
 // comments routes
 app.post('/comments',  verifyToken, commentCtrl.create)
 app.get('/comments',  verifyToken,commentCtrl.index)
