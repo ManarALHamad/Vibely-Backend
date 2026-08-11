@@ -170,7 +170,9 @@ const toggleLike = async (req, res) => {
 
         await post.save()
 
-        const updatedPost = await Post.findById(post._id).populate("author", "username")
+        //populate like
+
+        const updatedPost = await Post.findById(post._id).populate("author", "username").populate('likes', 'username')
         
         res.status(200).json(updatedPost)
 
