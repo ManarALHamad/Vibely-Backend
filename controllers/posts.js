@@ -135,11 +135,19 @@ const deletePost = async (req, res) => {
     }
 }
 
+//likes
+
+const toggleLike = async (req, res) => {
+
+
+}
+
 
 module.exports = {
     create,
     index,
     show,
     update,
-    deletePost
+    deletePost,
+    toggleLike,
 }
