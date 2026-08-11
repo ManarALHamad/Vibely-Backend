@@ -16,11 +16,11 @@ const create = async (req, res) => {
 
         const createdComment = await Comment.create(commentData)
 
-        // const populatedComment = await Comment.findById(createdComment._id).populate('author', 'username')
+        const populatedComment = await Comment.findById(createdComment._id).populate('author', 'username')
 
-        // res.status(201).json(populatedComment)
+        res.status(201).json(populatedComment)
 
-        res.status(201).json(createdComment)
+       
 
     } catch (error) {
         res.status(400).json({ message: error.message })
