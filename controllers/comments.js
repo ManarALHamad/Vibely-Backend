@@ -5,6 +5,26 @@ const Post = require('../models/post')
 const create = async (req, res) => {
     try {
 
+        const post = await Post.findById(req.body.post)
+
+        if (!post) {
+            return res.status(404).json({
+                message: 'Post not found'
+            })
+        }
+
+        //preventing the users from commenting on their posts
+        //if the user and author have same id =(no comment)
+
+        if(post.author.equals(req.user._id)) {
+
+             return res.status(403).json({
+                message: 'You cannot comment on your own post.'
+            })
+
+        }
+
+
         const commentData = {
 
            content: req.body.content,
@@ -13,6 +33,8 @@ const create = async (req, res) => {
         }
 
         const createdComment = await Comment.create(commentData)
+
+        
 
         res.status(201).json(createdComment)
 
