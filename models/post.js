@@ -9,9 +9,13 @@ const postSchema = new mongoose.Schema({
     },
 
     mediaUrl:{
-        url: String,
-        publicId: String,
-        required: true,
+         url: {
+            type: String,
+            required: true
+        },
+        publicId: {
+            type: String
+        }
     },
     caption: {
         type: String,
