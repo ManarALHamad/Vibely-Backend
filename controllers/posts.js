@@ -31,7 +31,7 @@ const create = async (req, res) => {
 const index = async (req, res) => {
     try {
 
-        const posts = await Post.find().populate('author', 'username').sort({ createdAt: -1 })
+        const posts = await Post.find().populate('author', 'username').populate('likes', 'username').sort({ createdAt: -1 })
         res.status(200).json(posts)
 
     } catch (error) {
