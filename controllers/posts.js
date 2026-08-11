@@ -139,6 +139,48 @@ const deletePost = async (req, res) => {
 
 const toggleLike = async (req, res) => {
 
+    try {
+
+        const post = await Post.findById(req.params.postId)
+
+         if (!post) {
+            return res.status(404).json({
+                message: "Post not found"
+            })
+        }
+        const userId = req.user._id
+
+        //.some function to check if at least one element in an array passes
+
+         const alreadyLiked = post.likes.some((like) => {
+            return like.equals(userId)
+        })
+
+        if (alreadyLiked) {
+
+         post.likes = post.likes.filter((like) => {
+                return !like.equals(userId)
+            })
+
+        } else {
+
+            post.likes.push(userId)
+
+        }
+
+        await post.save()
+
+        const updatedPost = await Post.findById(post._id).populate("author", "username")
+        
+        res.status(200).json(updatedPost)
+
+    } catch (error) {
+        
+        res.status(500).json({
+            message: error.message
+        })
+    }
+
 
 }
 
