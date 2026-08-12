@@ -1,6 +1,7 @@
 const Comment = require('../models/Comment')
 const Post = require('../models/post')
 
+//create a comment 
 
 const create = async (req, res) => {
     try {
@@ -27,11 +28,12 @@ const create = async (req, res) => {
     }
 }
 
+//show all comments
 
 const index = async (req, res) => {
     try {
 
-        const comments = await Comment .find() .populate('author', 'username').populate('post') .sort({ createdAt: -1 })
+        const comments = await Comment.find().populate('author', 'username').populate('post') .sort({ createdAt: -1 })
 
         res.status(200).json(comments)
 
@@ -40,6 +42,7 @@ const index = async (req, res) => {
     }
 }
 
+// show one comment
 
 const show = async (req, res) => {
     try {
@@ -59,10 +62,31 @@ const show = async (req, res) => {
     }
 }
 
+//update the comment
 
 const update = async (req, res) => {
 
     try {
+
+    //to update the comment we need to find it
+    
+    const comment = await Comment.findById(req.params.commentId)
+
+    if(!comment) {
+        return res.status(404).json ({
+            message: 'Comment not found'
+        })
+    }
+
+    //only comment owner can edit 
+
+    if(!comment.author.equals(req.user._id)){
+     
+        return res.status(403).json({
+            message: 'Unauthorized'
+            })
+
+    }
 
          const commentData = {
             content: req.body.content
@@ -74,13 +98,7 @@ const update = async (req, res) => {
                 new: true,
                 runValidators: true
             }
-        )
-
-        if (!updatedComment) {
-            return res.status(404).json({
-                message: 'Comment not found'
-            })
-        }
+        ).populate('author', 'username')
 
         res.status(200).json(updatedComment)
 
@@ -89,6 +107,7 @@ const update = async (req, res) => {
     }
 }
 
+//delete comment
 
 const deleteComment = async (req, res) => {
     try {

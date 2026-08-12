@@ -21,10 +21,21 @@ const userSchema = new mongoose.Schema({
     },
     profileImage: {
         type: String,
-        default: "https://i.imgur.com/2DhmtJ4.png"
+        // profile image url that always change
+        default: "https://i.imgur.com/2DhmtJ4.png" 
     },
-   
+    followers: [{
 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
+
+     following: [{
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
+    
 }, {timestamps: true})
 
 userSchema.set('toJSON', {
