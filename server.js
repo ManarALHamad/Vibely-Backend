@@ -45,6 +45,8 @@ app.delete('/posts/:postId', verifyToken, postCtrl.deletePost)
 //Like
 app.put('/posts/:postId/like', verifyToken, postCtrl.toggleLike)
 
+//following and followers
+app.put('/users/:userId/follow', verifyToken, usersCtrl.toggleFollow)
 
 
 // comments routes
